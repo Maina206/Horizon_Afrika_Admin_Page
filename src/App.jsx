@@ -81,31 +81,6 @@ function App() {
               </p>
             </div>
             <div>
-              <h3 className="font-bold mb-4">QUICK ACCESS</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="hover:underline">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Destinations
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Packages
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
               <h3 className="font-bold mb-4">Follow Us:</h3>
               <p className="text-sm">
                 Join the thousands of other followers on our social platform and

@@ -19,17 +19,12 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-700 hover:text-orange-500">
-              Home
-            </a>
-            <a href="#" className="text-gray-700 hover:text-orange-500">
-              Destinations
-            </a>
-            <a href="#" className="text-gray-700 hover:text-orange-500">
-              Safari Packages
-            </a>
-            <a href="#" className="text-gray-700 hover:text-orange-500">
-              About Us
+            <a
+              href="#"
+              className="font  text-[#FF6700] text-2xl"
+              style={{ fontFamily: "'Protest Revolution', sans-serif" }}
+            >
+              Bookings
             </a>
             <button className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600">
               Log Out
@@ -55,25 +50,7 @@ const Navbar = () => {
                 href="#"
                 className="block px-3 py-2 text-gray-700 hover:text-orange-500"
               >
-                Home
-              </a>
-              <a
-                href="#"
-                className="block px-3 py-2 text-gray-700 hover:text-orange-500"
-              >
-                Destinations
-              </a>
-              <a
-                href="#"
-                className="block px-3 py-2 text-gray-700 hover:text-orange-500"
-              >
-                Safari Packages
-              </a>
-              <a
-                href="#"
-                className="block px-3 py-2 text-gray-700 hover:text-orange-500"
-              >
-                About Us
+                Bookings
               </a>
               <button className="w-full text-left px-3 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600">
                 Log Out
