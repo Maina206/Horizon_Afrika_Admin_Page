@@ -52,7 +52,7 @@ This is a web-based tour and travel booking application built using React and Ta
   │   ├── Navbar.jsx
   │   ├── SearchBar.jsx
   │   ├── PackageCard.jsx
-  ├── assets
+  ├── public
   │   ├── safari.jpeg
   │   ├── saf.webp
   │   ├── tanzania-7416241_640.jpg
