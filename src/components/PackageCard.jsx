@@ -1,6 +1,24 @@
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import CreatePackageModal from "./CreatePackageModal/CreatePackageModal";
 
-const PackageCard = ({ title, price, image, location, booked, viewed }) => {
+const PackageCard = ({
+  title,
+  price,
+  image,
+  location,
+  booked,
+  viewed,
+  packageData,
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState("create");
+
+  const handleEditClick = () => {
+    setModalMode("edit");
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="bg-gray-100 rounded-lg overflow-hidden shadow-md mb-4">
       <div className="md:flex">
@@ -24,7 +42,6 @@ const PackageCard = ({ title, price, image, location, booked, viewed }) => {
                 <p className="text-gray-600">Location: {location}</p>
               </div>
               <div className="text-right">
-                {/* <p className="text-gray-600">Booked: {booked}</p> */}
                 <ul className="space-y-2">
                   <li>
                     <a
@@ -41,7 +58,10 @@ const PackageCard = ({ title, price, image, location, booked, viewed }) => {
           </div>
 
           <div className="mt-4 flex justify-end gap-2">
-            <button className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+            <button
+              className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+              onClick={handleEditClick}
+            >
               Edit Package
             </button>
             <button className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
@@ -50,6 +70,13 @@ const PackageCard = ({ title, price, image, location, booked, viewed }) => {
           </div>
         </div>
       </div>
+
+      <CreatePackageModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        mode={modalMode}
+        initialData={modalMode === "edit" ? packageData : undefined}
+      />
     </div>
   );
 };
@@ -61,6 +88,7 @@ PackageCard.propTypes = {
   location: PropTypes.string.isRequired,
   booked: PropTypes.string.isRequired,
   viewed: PropTypes.string.isRequired,
+  packageData: PropTypes.object,
 };
 
 export default PackageCard;
