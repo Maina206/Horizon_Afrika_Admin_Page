@@ -12,6 +12,16 @@ const packages = [
     location: "Samburu",
     booked: "100",
     viewed: "590",
+    packageData: {
+      packageName: "05 DAYS GLIMPSE OF KENYA BUDGET SAFARI",
+      price: "15999",
+      location: "Samburu",
+      packageType: "Bush",
+      activities: "Game Drive, Nature Walk",
+      dayCount: "5",
+      inclusions: "Transportation, Accommodation, Meals",
+      exclusions: "Personal items, Tips",
+    },
   },
   {
     title: "6 DAYS KENYA HIGHLIGHTS BUDGET SAFARI",
@@ -20,6 +30,16 @@ const packages = [
     location: "Masaai Mara",
     booked: "200",
     viewed: "300",
+    packageData: {
+      packageName: "6 DAYS KENYA HIGHLIGHTS BUDGET SAFARI",
+      price: "20047",
+      location: "Masaai Mara",
+      packageType: "Bush",
+      activities: "Game Drive, Cultural Visit",
+      dayCount: "6",
+      inclusions: "Transportation, Accommodation, Meals",
+      exclusions: "Personal items, Tips",
+    },
   },
   {
     title: "8 DAYS CHEETAH BUDGET SAFARI",
@@ -28,8 +48,17 @@ const packages = [
     location: "Nakuru",
     booked: "188",
     viewed: "189",
+    packageData: {
+      packageName: "8 DAYS CHEETAH BUDGET SAFARI",
+      price: "11896",
+      location: "Nakuru",
+      packageType: "Bush",
+      activities: "Game Drive, Bird Watching",
+      dayCount: "8",
+      inclusions: "Transportation, Accommodation, Meals",
+      exclusions: "Personal items, Tips",
+    },
   },
-  // Add more packages as needed
 ];
 
 function App() {
@@ -39,13 +68,10 @@ function App() {
       <SearchBar />
       <main className="max-w-7xl mx-auto px-4 py-8">
         {packages.map((pkg, index) => (
-          <>
-            <PackageCard key={index} {...pkg} />
-            <PackageCard key={index} {...pkg} />
-          </>
+          <PackageCard key={index} {...pkg} />
         ))}
       </main>
-      <footer className="bg-orange-500 text-white py-8 ">
+      <footer className="bg-orange-500 text-white py-8">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
@@ -53,31 +79,6 @@ function App() {
               <p className="text-sm">
                 Kenya's leading tour and travels booking website.
               </p>
-            </div>
-            <div>
-              <h3 className="font-bold mb-4">QUICK ACCESS</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="hover:underline">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Destinations
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Packages
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Contact
-                  </a>
-                </li>
-              </ul>
             </div>
             <div>
               <h3 className="font-bold mb-4">Follow Us:</h3>
