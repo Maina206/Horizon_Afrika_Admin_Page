@@ -1,0 +1,208 @@
+/* Commented out since it's in the */
+/* Overlay .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 20px;
+  overflow-y: auto;
+} */
+
+/* Modal Content */
+.login-class .modal-content {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url(public/sahara-8208094_640.webp);
+  background-size: cover;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  text-align: center;
+}
+
+/* Close Button */
+.login-class .close-button {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #ff6700;
+  transition: transform 0.3s;
+}
+
+.login-class .close-button:hover {
+  transform: scale(1.2);
+}
+
+/* Titles and Text */
+.modal-title {
+  color: #ff6700;
+  font-family: "Protest Revolution", sans-serif;
+  font-size: 1.9rem;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.modal-subtitle {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.modal-role {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.modal-underline {
+  width: 50px;
+  height: 2px;
+  background: #ff6700;
+  margin: 0 auto 20px;
+  border: none;
+}
+
+/* Input Groups */
+.input-group {
+  text-align: left;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  background: #ff6700;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.input-with-icon .input-icon {
+  color: #fff;
+  margin: 0 10px;
+}
+
+.input-with-icon input {
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Buttons */
+.sign-in-button {
+  background: #fff;
+  border: 1px solid #ff6700;
+  color: #ff6700;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.sign-in-button:hover {
+  background: #ff6700;
+  color: #fff;
+}
+
+/* Sign Up Text */
+.signup-text {
+  margin-top: 15px;
+}
+
+.signup-text a {
+  color: #ff6700;
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .login-class .modal-content {
+    width: 90%;
+    max-width: 350px;
+  }
+
+  .modal-title {
+    font-size: 22px;
+  }
+
+  .modal-subtitle {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login-class .modal-content {
+    width: 100%;
+    max-width: 320px;
+    padding: 15px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+  }
+
+  .modal-subtitle {
+    font-size: 14px;
+  }
+
+  .input-with-icon {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-with-icon .input-icon {
+    margin-bottom: 5px;
+  }
+
+  .sign-in-button {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .login-class .modal-content {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .modal-subtitle {
+    font-size: 12px;
+  }
+
+  .sign-in-button {
+    font-size: 12px;
+  }
+}

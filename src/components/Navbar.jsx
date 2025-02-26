@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import LoginModal from "./LoginSignUpModals/AgencyLogin";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     <nav className="bg-white shadow-md">
@@ -26,8 +31,11 @@ const Navbar = () => {
             >
               Bookings
             </a>
-            <button className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600">
-              Log Out
+            <button
+              className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
+              onClick={toggleModal}
+            >
+              Log In
             </button>
           </div>
 
@@ -52,13 +60,18 @@ const Navbar = () => {
               >
                 Bookings
               </a>
-              <button className="w-full text-left px-3 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600">
-                Log Out
+              <button
+                className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
+                onClick={toggleModal}
+              >
+                Log In
               </button>
             </div>
           </div>
         )}
       </div>
+
+      <LoginModal isOpen={isModalOpen} onClose={toggleModal} />
     </nav>
   );
 };
