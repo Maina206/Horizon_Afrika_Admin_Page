@@ -1,0 +1,86 @@
+[
+  {
+    "userName": "Alice Johnson",
+    "packageName": "05 DAYS GLIMPSE OF KENYA BUDGET SAFARI",
+    "location": "Masai Mara",
+    "email": "alice@mail.com",
+    "amountPaid": "KES 30,000"
+  },
+  {
+    "userName": "Michael Smith",
+    "packageName": "3 Days Amboseli Adventure",
+    "location": "Amboseli",
+    "email": "michael@mail.com",
+    "amountPaid": "KES 18,500"
+  },
+  {
+    "userName": "Emily Davis",
+    "packageName": "7 Days Great Migration Safari",
+    "location": "Serengeti",
+    "email": "emily@mail.com",
+    "amountPaid": "KES 45,000"
+  },
+  {
+    "userName": "Daniel Brown",
+    "packageName": "4 Days Tsavo East Safari",
+    "location": "Tsavo East",
+    "email": "daniel@mail.com",
+    "amountPaid": "KES 22,000"
+  },
+  {
+    "userName": "Sophia Wilson",
+    "packageName": "6 Days Lake Nakuru & Naivasha",
+    "location": "Nakuru",
+    "email": "sophia@mail.com",
+    "amountPaid": "KES 35,000"
+  },
+  {
+    "userName": "James White",
+    "packageName": "5 Days Samburu Luxury Safari",
+    "location": "Samburu",
+    "email": "james@mail.com",
+    "amountPaid": "KES 50,000"
+  },
+  {
+    "userName": "Isabella Thomas",
+    "packageName": "8 Days Kenya-Tanzania Tour",
+    "location": "Nairobi & Arusha",
+    "email": "isabella@mail.com",
+    "amountPaid": "KES 65,000"
+  },
+  {
+    "userName": "Ethan Martinez",
+    "packageName": "2 Days Mt. Kenya Hiking",
+    "location": "Mt. Kenya",
+    "email": "ethan@mail.com",
+    "amountPaid": "KES 15,000"
+  },
+  {
+    "userName": "Olivia Anderson",
+    "packageName": "10 Days Kenya & Zanzibar Getaway",
+    "location": "Zanzibar",
+    "email": "olivia@mail.com",
+    "amountPaid": "KES 75,000"
+  },
+  {
+    "userName": "William Harris",
+    "packageName": "3 Days Hell’s Gate & Naivasha",
+    "location": "Naivasha",
+    "email": "william@mail.com",
+    "amountPaid": "KES 17,500"
+  },
+  {
+    "userName": "Charlotte Moore",
+    "packageName": "6 Days Masai Mara & Serengeti",
+    "location": "Serengeti",
+    "email": "charlotte@mail.com",
+    "amountPaid": "KES 55,000"
+  },
+  {
+    "userName": "Benjamin Clark",
+    "packageName": "5 Days Amboseli & Tsavo Combo",
+    "location": "Amboseli",
+    "email": "benjamin@mail.com",
+    "amountPaid": "KES 40,000"
+  }
+]

@@ -45,7 +45,7 @@ const PackageCard = ({
                 <ul className="space-y-2">
                   <li>
                     <a
-                      href="#"
+                      href={`/bookings?packageId=${packageData?.id}`}
                       className="hover:scale-105 transition-transform"
                     >
                       Booked: {booked}
