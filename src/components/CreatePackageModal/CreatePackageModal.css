@@ -20,9 +20,9 @@
     url(public/sahara-8208094_640.webp);
   background-size: cover;
   border-radius: 8px;
-  padding: 20px;
+  padding: 50px;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;

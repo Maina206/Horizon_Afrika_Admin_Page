@@ -1,7 +1,8 @@
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import PackageCard from "./components/PackageCard";
-
+import BookingTable from "./components/BookingsTable";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const packages = [
@@ -67,9 +68,15 @@ function App() {
       <Navbar />
       <SearchBar />
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {packages.map((pkg, index) => (
-          <PackageCard key={index} {...pkg} />
-        ))}
+        <Routes>
+          <Route
+            path="/"
+            element={packages.map((pkg, index) => (
+              <PackageCard key={index} {...pkg} />
+            ))}
+          />
+          <Route path="/bookings" element={<BookingTable />} />
+        </Routes>
       </main>
       <footer className="bg-orange-500 text-white py-8">
         <div className="max-w-7xl mx-auto px-4">
