@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FaTimes, FaUser, FaLock } from "react-icons/fa";
 import "./agencylogin.css";
 
@@ -46,6 +47,11 @@ const LoginModal = ({ isOpen, onClose }) => {
       </div>
     </div>
   );
+};
+
+LoginModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default LoginModal;
