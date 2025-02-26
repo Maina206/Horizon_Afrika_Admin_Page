@@ -1,68 +1,21 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import PackageCard from "./components/PackageCard";
 import BookingTable from "./components/BookingsTable";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const packages = [
-  {
-    title: "05 DAYS GLIMPSE OF KENYA BUDGET SAFARI",
-    price: "Ksh15,999",
-    image: "./safari.jpeg",
-    location: "Samburu",
-    booked: "100",
-    viewed: "590",
-    packageData: {
-      packageName: "05 DAYS GLIMPSE OF KENYA BUDGET SAFARI",
-      price: "15999",
-      location: "Samburu",
-      packageType: "Bush",
-      activities: "Game Drive, Nature Walk",
-      dayCount: "5",
-      inclusions: "Transportation, Accommodation, Meals",
-      exclusions: "Personal items, Tips",
-    },
-  },
-  {
-    title: "6 DAYS KENYA HIGHLIGHTS BUDGET SAFARI",
-    price: "Ksh20,047",
-    image: "./saf.webp",
-    location: "Masaai Mara",
-    booked: "200",
-    viewed: "300",
-    packageData: {
-      packageName: "6 DAYS KENYA HIGHLIGHTS BUDGET SAFARI",
-      price: "20047",
-      location: "Masaai Mara",
-      packageType: "Bush",
-      activities: "Game Drive, Cultural Visit",
-      dayCount: "6",
-      inclusions: "Transportation, Accommodation, Meals",
-      exclusions: "Personal items, Tips",
-    },
-  },
-  {
-    title: "8 DAYS CHEETAH BUDGET SAFARI",
-    price: "Ksh11,896",
-    image: "./tanzania-7416241_640.jpg",
-    location: "Nakuru",
-    booked: "188",
-    viewed: "189",
-    packageData: {
-      packageName: "8 DAYS CHEETAH BUDGET SAFARI",
-      price: "11896",
-      location: "Nakuru",
-      packageType: "Bush",
-      activities: "Game Drive, Bird Watching",
-      dayCount: "8",
-      inclusions: "Transportation, Accommodation, Meals",
-      exclusions: "Personal items, Tips",
-    },
-  },
-];
-
 function App() {
+  const [packages, setPackages] = useState([]);
+
+  useEffect(() => {
+    fetch("/packages.json")
+      .then((response) => response.json())
+      .then((data) => setPackages(data))
+      .catch((error) => console.error("Error fetching package data:", error));
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
