@@ -8,6 +8,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function App() {
   const [packages, setPackages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   useEffect(() => {
     fetch("/packages.json")
@@ -15,6 +17,12 @@ function App() {
       .then((data) => setPackages(data))
       .catch((error) => console.error("Error fetching package data:", error));
   }, []);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = packages.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="min-h-screen bg-white">
@@ -24,9 +32,32 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={packages.map((pkg, index) => (
-              <PackageCard key={index} {...pkg} />
-            ))}
+            element={
+              <>
+                {currentItems.map((pkg, index) => (
+                  <PackageCard key={index} {...pkg} />
+                ))}
+
+                <div className="flex justify-center mt-4">
+                  {Array.from(
+                    { length: Math.ceil(packages.length / itemsPerPage) },
+                    (_, i) => (
+                      <button
+                        key={i + 1}
+                        onClick={() => paginate(i + 1)}
+                        className={`mx-1 px-3 py-1 rounded ${
+                          currentPage === i + 1
+                            ? "bg-orange-500 text-white"
+                            : "bg-gray-200 text-gray-700"
+                        }`}
+                      >
+                        {i + 1}
+                      </button>
+                    )
+                  )}
+                </div>
+              </>
+            }
           />
           <Route path="/bookings" element={<BookingTable />} />
         </Routes>
