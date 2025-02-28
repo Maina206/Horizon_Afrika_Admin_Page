@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import LoginModal from "./LoginSignUpModals/AgencyLogin";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isLoggedIn, logout } = useContext(AuthContext);
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -28,12 +35,21 @@ const Navbar = () => {
             <Link to="/bookings" className="font text-[#FF6700] text-2xl">
               Bookings
             </Link>
-            <button
+            {isLoggedIn ? (
+              <button
+                className="w-full text-left px-3 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
+                onClick={handleLogout}
+              >
+                Log Out
+              </button>
+            ) : (
+              <button
                 className="w-full text-left px-3 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
                 onClick={toggleModal}
               >
                 Log In
               </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -63,14 +79,21 @@ const Navbar = () => {
               >
                 Bookings
               </Link>
-                Bookings
-              {/* </a> */}
-              <button
-                className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
-                onClick={toggleModal}
-              >
-                Log In
-              </button>
+              {isLoggedIn ? (
+                <button
+                  className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
+              ) : (
+                <button
+                  className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
+                  onClick={toggleModal}
+                >
+                  Log In
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -80,6 +103,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
 
 export default Navbar;
