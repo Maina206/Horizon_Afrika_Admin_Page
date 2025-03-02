@@ -52,7 +52,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
 
       // Handle form submission based on mode
       if (mode === "edit" && initialData) {
-        await editPackage(formData, initialData.id);
+        await editPackage(initialData.id, formData);
         console.log("Updating package:", packageData, images);
       } else {
         await createPackage(formData, images);

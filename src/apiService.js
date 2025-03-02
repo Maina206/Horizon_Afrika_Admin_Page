@@ -1,5 +1,14 @@
 const API_BASE_URL = "http://127.0.0.1:5000";
 
+const getAuthHeader = () => {
+  const token = localStorage.getItem("access_token");
+  console.log("stored token", token);
+  if (token) {
+    return { Authorization: `Bearer ${token}` };
+  }
+  return {};
+};
+
 // Function to create a package
 export const createPackage = async (packageData) => {
   try {
@@ -7,6 +16,7 @@ export const createPackage = async (packageData) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...getAuthHeader(),
       },
       body: JSON.stringify(packageData),
     });
@@ -27,6 +37,7 @@ export const editPackage = async (packageId, updatedData) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        ...getAuthHeader(),
       },
       body: JSON.stringify(updatedData),
     });
@@ -45,6 +56,9 @@ export const deletePackage = async (packageId) => {
   try {
     const response = await fetch(`${API_BASE_URL}/packages/${packageId}`, {
       method: "DELETE",
+      headers: {
+        ...getAuthHeader(),
+      },
     });
     if (!response.ok) {
       throw new Error("Failed to delete package");
@@ -59,7 +73,12 @@ export const deletePackage = async (packageId) => {
 // Function to fetch bookings data
 export const getBookings = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/bookings`);
+    const response = await fetch(`${API_BASE_URL}/bookings`, {
+      method: "GET",
+      headers: {
+        ...getAuthHeader(),
+      },
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch bookings");
     }

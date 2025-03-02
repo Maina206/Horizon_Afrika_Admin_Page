@@ -20,7 +20,11 @@ const BookingTable = () => {
         calculateTotalAmount(data);
         setError(null);
       } catch (e) {
-        setError("Failed to fetch bookings. please try again later");
+        if (e.message === "Failed to fetch bookings") {
+          setError("Unauthorized: Please log in to access bookings.");
+        } else {
+          setError("Failed to fetch bookings. please try again later");
+        }
         console.error("Error loading bookings:", e);
       } finally {
         setLoading(false);
