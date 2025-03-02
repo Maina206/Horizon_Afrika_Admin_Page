@@ -98,3 +98,15 @@ tr.odd {
     align-items: flex-start;
   }
 }
+.loading,
+.error,
+.no-data {
+  padding: 2rem;
+  text-align: center;
+  color: #ff6b00;
+  font-size: 1rem;
+}
+
+.error {
+  color: #ff6b00;
+}

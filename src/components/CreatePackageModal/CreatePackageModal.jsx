@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./CreatePackageModal.css";
+import { createPackage, editPackage } from "../../apiService";
 
 const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
   const [packageData, setPackageData] = useState({
@@ -14,6 +15,8 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
   });
 
   const [images, setImages] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (mode === "edit" && initialData) {
@@ -37,15 +40,31 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission based on mode
-    if (mode === "edit") {
-      console.log("Updating package:", packageData, images);
-    } else {
-      console.log("Creating new package:", packageData, images);
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const formData = {
+        ...packageData,
+      };
+
+      // Handle form submission based on mode
+      if (mode === "edit" && initialData) {
+        await editPackage(initialData.id, formData);
+        console.log("Updating package:", packageData, images);
+      } else {
+        await createPackage(formData, images);
+        console.log("Creating new package:", packageData, images);
+      }
+      onClose();
+    } catch (err) {
+      setError("Failed to save package. Please try again");
+      console.error("Error saving package:", err);
+    } finally {
+      setIsSubmitting(false);
     }
-    onClose();
   };
 
   if (!isOpen) return null;
@@ -65,6 +84,8 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
         </div>
 
         <form onSubmit={handleSubmit}>
+          {error && <div className="error-message">{error}</div>}
+
           <div className="form-group">
             <label>Package Name</label>
             <input
@@ -73,6 +94,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
               onChange={(e) =>
                 setPackageData({ ...packageData, packageName: e.target.value })
               }
+              required
             />
           </div>
 
@@ -84,6 +106,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
               onChange={(e) =>
                 setPackageData({ ...packageData, price: e.target.value })
               }
+              required
             />
           </div>
 
@@ -97,6 +120,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
                 onChange={(e) =>
                   setPackageData({ ...packageData, location: e.target.value })
                 }
+                required
               />
             </div>
 
@@ -159,6 +183,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
                 onChange={(e) =>
                   setPackageData({ ...packageData, activities: e.target.value })
                 }
+                required
               />
             </div>
 
@@ -170,6 +195,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
                 onChange={(e) =>
                   setPackageData({ ...packageData, dayCount: e.target.value })
                 }
+                required
               />
             </div>
           </div>
@@ -200,6 +226,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
               onChange={(e) =>
                 setPackageData({ ...packageData, inclusions: e.target.value })
               }
+              required
             />
           </div>
 
@@ -210,11 +237,20 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
               onChange={(e) =>
                 setPackageData({ ...packageData, exclusions: e.target.value })
               }
+              required
             />
           </div>
 
-          <button type="submit" className="upload-package-btn">
-            {mode === "edit" ? "UPDATE PACKAGE" : "UPLOAD PACKAGE"}
+          <button
+            type="submit"
+            className="upload-package-btn"
+            disabled={isSubmitting}
+          >
+            {isSubmitting
+              ? "PROCESSING..."
+              : mode === "edit"
+              ? "UPDATE PACKAGE"
+              : "UPLOAD PACKAGE"}
           </button>
         </form>
       </div>

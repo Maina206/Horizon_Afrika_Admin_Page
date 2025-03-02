@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../BookingTable.css";
+import { getBookings } from "../apiService";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -7,15 +8,29 @@ const BookingTable = () => {
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/bookingsdata.json")
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchBookings = async () => {
+      try {
+        setLoading(true);
+        const data = await getBookings();
         setBookings(data);
         calculateTotalAmount(data);
-      })
-      .catch((error) => console.error("Error loading bookings:", error));
+        setError(null);
+      } catch (e) {
+        if (e.message === "Failed to fetch bookings") {
+          setError("Unauthorized: Please log in to access bookings.");
+        } else {
+          setError("Failed to fetch bookings. please try again later");
+        }
+        console.error("Error loading bookings:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBookings();
   }, []);
 
   const calculateTotalAmount = (data) => {
@@ -39,31 +54,42 @@ const BookingTable = () => {
     setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
   const prevPage = () => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
 
+  if (loading) {
+    return <div className="loading">Loading bookings data...</div>;
+  }
+  if (error) {
+    return <div className="error">Error: {error}</div>;
+  }
+
   return (
     <div className="table-container">
       <div className="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>User Name</th>
-              <th>Package Name</th>
-              <th>Location</th>
-              <th>Email</th>
-              <th>Amount Paid</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentBookings.map((booking, index) => (
-              <tr key={index} className={index % 2 === 0 ? "even" : "odd"}>
-                <td>{booking.userName}</td>
-                <td>{booking.packageName}</td>
-                <td>{booking.location}</td>
-                <td>{booking.email}</td>
-                <td>{booking.amountPaid}</td>
+        {bookings.length === 0 ? (
+          <div className="no-data">No bookings found</div>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>Package Name</th>
+                <th>Location</th>
+                <th>Email</th>
+                <th>Amount Paid</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {currentBookings.map((booking, index) => (
+                <tr key={index} className={index % 2 === 0 ? "even" : "odd"}>
+                  <td>{booking.userName}</td>
+                  <td>{booking.packageName}</td>
+                  <td>{booking.location}</td>
+                  <td>{booking.email}</td>
+                  <td>{booking.amountPaid}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {/* Pagination Controls */}
