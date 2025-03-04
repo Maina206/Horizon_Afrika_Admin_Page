@@ -12,7 +12,7 @@ function App() {
   const [itemsPerPage] = useState(10);
 
   useEffect(() => {
-    fetch("/packages.json")
+    fetch("packages.json")
       .then((response) => response.json())
       .then((data) => setPackages(data))
       .catch((error) => console.error("Error fetching package data:", error));
