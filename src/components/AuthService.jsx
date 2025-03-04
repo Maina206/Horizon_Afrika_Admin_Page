@@ -9,9 +9,14 @@ const loginClient = async (email, password) => {
       agency_password: password,
     });
 
-    if (response.data.access_token) {
+    console.log("Login APIrESPONSE:", response.data);
+
+    if (response.data.access_token && response.data.agency?.id) {
       localStorage.setItem("user", JSON.stringify(response.data.agency));
       localStorage.setItem("token", response.data.access_token);
+      localStorage.setItem("agency_id", response.data.agency.id);
+    } else {
+      console.error("Error: Misssing `agency_id` inAPI response");
     }
 
     return response.data;

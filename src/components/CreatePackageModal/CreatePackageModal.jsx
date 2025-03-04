@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./CreatePackageModal.css";
+
+const API_URL = "http://127.0.0.1:5000/packages"; // Adjust the backend URL accordingly
 
 const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
   const [packageData, setPackageData] = useState({
-    packageName: "",
+    package_name: "",
     price: "",
     location: "",
-    packageType: "Beach",
+    package_type: "Beach",
     activities: "",
-    dayCount: "",
+    day_count: "",
     inclusions: "",
     exclusions: "",
   });
@@ -18,12 +21,12 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
   useEffect(() => {
     if (mode === "edit" && initialData) {
       setPackageData({
-        packageName: initialData.packageName || "",
+        package_name: initialData.package_name || "",
         price: initialData.price || "",
         location: initialData.location || "",
-        packageType: initialData.packageType || "Beach",
+        package_type: initialData.package_type || "Beach",
         activities: initialData.activities || "",
-        dayCount: initialData.dayCount || "",
+        day_count: initialData.day_count || "",
         inclusions: initialData.inclusions || "",
         exclusions: initialData.exclusions || "",
       });
@@ -37,15 +40,61 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission based on mode
-    if (mode === "edit") {
-      console.log("Updating package:", packageData, images);
-    } else {
-      console.log("Creating new package:", packageData, images);
+
+    const agency_id = localStorage.getItem("agency_id");
+    console.log("Retrieved agency ID:", agency_id);
+
+    if (!agency_id) {
+      alert("Error: Missing Agency ID. Please log in again.");
+      return;
     }
-    onClose();
+
+    const jsonData = {
+      agency_id,
+      package_name: packageData.package_name,
+      price: packageData.price,
+      location: packageData.location,
+      package_type: packageData.package_type,
+      activities: packageData.activities || "None", // 🔹 Fix: Ensure activities is not empty
+      day_count: packageData.day_count,
+      inclusions: packageData.inclusions,
+      exclusions: packageData.exclusions,
+    };
+
+    console.log("Sending JSON Data:", jsonData);
+
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      let response;
+      if (mode === "edit") {
+        response = await axios.put(
+          `${API_URL}/${initialData.id}`,
+          jsonData,
+          config
+        );
+        console.log("Package updated successfully:", response.data);
+      } else {
+        response = await axios.post(API_URL, jsonData, config);
+        console.log("Package created successfully:", response.data);
+      }
+
+      onClose(); // Close modal after success
+    } catch (error) {
+      console.error(
+        "Error submitting package:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   if (!isOpen) return null;
@@ -69,10 +118,11 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
             <label>Package Name</label>
             <input
               type="text"
-              value={packageData.packageName}
+              value={packageData.package_name}
               onChange={(e) =>
-                setPackageData({ ...packageData, packageName: e.target.value })
+                setPackageData({ ...packageData, package_name: e.target.value })
               }
+              required
             />
           </div>
 
@@ -84,6 +134,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
               onChange={(e) =>
                 setPackageData({ ...packageData, price: e.target.value })
               }
+              required
             />
           </div>
 
@@ -97,57 +148,30 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
                 onChange={(e) =>
                   setPackageData({ ...packageData, location: e.target.value })
                 }
+                required
               />
             </div>
 
             <div className="package-types">
               <label>Package:</label>
               <div className="radio-group">
-                <label>
-                  <input
-                    type="radio"
-                    name="packageType"
-                    value="Beach"
-                    checked={packageData.packageType === "Beach"}
-                    onChange={(e) =>
-                      setPackageData({
-                        ...packageData,
-                        packageType: e.target.value,
-                      })
-                    }
-                  />
-                  Beach
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="packageType"
-                    value="Bush"
-                    checked={packageData.packageType === "Bush"}
-                    onChange={(e) =>
-                      setPackageData({
-                        ...packageData,
-                        packageType: e.target.value,
-                      })
-                    }
-                  />
-                  Bush
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="packageType"
-                    value="Weekend Getaways"
-                    checked={packageData.packageType === "Weekend Getaways"}
-                    onChange={(e) =>
-                      setPackageData({
-                        ...packageData,
-                        packageType: e.target.value,
-                      })
-                    }
-                  />
-                  Weekend Getaways
-                </label>
+                {["Beach", "Bush", "Weekend Getaways"].map((type) => (
+                  <label key={type}>
+                    <input
+                      type="radio"
+                      name="packageType"
+                      value={type}
+                      checked={packageData.package_type === type}
+                      onChange={(e) =>
+                        setPackageData({
+                          ...packageData,
+                          package_type: e.target.value,
+                        })
+                      }
+                    />
+                    {type}
+                  </label>
+                ))}
               </div>
             </div>
 
@@ -166,9 +190,9 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
               <label>Day Count</label>
               <input
                 type="number"
-                value={packageData.dayCount}
+                value={packageData.day_count}
                 onChange={(e) =>
-                  setPackageData({ ...packageData, dayCount: e.target.value })
+                  setPackageData({ ...packageData, day_count: e.target.value })
                 }
               />
             </div>
