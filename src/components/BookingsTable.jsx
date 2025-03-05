@@ -48,7 +48,7 @@ const BookingTable = () => {
   }, [bookings]);
 
   const totalAmount = useMemo(() => {
-    if (!Array.isArray(bookings)) return 0; // Ensure bookings is an array
+    if (!Array.isArray(bookings)) return 0;
     return bookings.reduce((sum, booking) => {
       const amountStr = booking?.price_paid ? String(booking.price_paid) : "0";
       const amount = parseInt(amountStr.replace(/[^0-9]/g, ""), 10);

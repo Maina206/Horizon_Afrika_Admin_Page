@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import CreatePackageModal from "./CreatePackageModal/CreatePackageModal";
 
 const PackageCard = ({
@@ -10,13 +11,43 @@ const PackageCard = ({
   booked,
   viewed,
   packageData,
+  onPackageUpdate,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState("create");
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   const handleEditClick = () => {
+    if (!packageData) {
+      console.error("No package data available. packageData:", packageData);
+      alert("Error:Package data is missing");
+      return;
+    }
+    console.log("Opening edit modal with data:", packageData);
     setModalMode("edit");
+    setSelectedPackage(packageData);
     setIsModalOpen(true);
+  };
+
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem("token");
+
+    if (!id) {
+      console.error("Error: packageId is undefined");
+      return;
+    }
+
+    try {
+      await axios.delete(`http://127.0.0.1:5000/package/delete/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log(`Deleted package with ID: ${id}`);
+      onPackageUpdate();
+    } catch (error) {
+      console.error("Error deleting package:", error.message);
+      alert(`Error deleting package: ${error.message}`);
+    }
   };
 
   return (
@@ -64,7 +95,10 @@ const PackageCard = ({
             >
               Edit Package
             </button>
-            <button className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              onClick={() => handleDelete(packageData?.id)}
+            >
               Delete Package
             </button>
           </div>
@@ -75,7 +109,7 @@ const PackageCard = ({
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         mode={modalMode}
-        initialData={modalMode === "edit" ? packageData : undefined}
+        initialData={modalMode === "edit" ? selectedPackage : undefined}
       />
     </div>
   );
@@ -89,6 +123,7 @@ PackageCard.propTypes = {
   booked: PropTypes.string.isRequired,
   viewed: PropTypes.string.isRequired,
   packageData: PropTypes.object,
+  onPackageUpdate: PropTypes.func,
 };
 
 export default PackageCard;

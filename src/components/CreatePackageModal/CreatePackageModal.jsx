@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CreatePackageModal.css";
 
-const API_URL = "http://127.0.0.1:5000/packages"; // Adjust the backend URL accordingly
+const API_URL = "http://127.0.0.1:5000/packages";
 
 const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
   const [packageData, setPackageData] = useState({
@@ -57,7 +57,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
       price: packageData.price,
       location: packageData.location,
       package_type: packageData.package_type,
-      activities: packageData.activities || "None", // 🔹 Fix: Ensure activities is not empty
+      activities: packageData.activities || "None",
       day_count: packageData.day_count,
       inclusions: packageData.inclusions,
       exclusions: packageData.exclusions,
@@ -78,7 +78,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
       let response;
       if (mode === "edit") {
         response = await axios.put(
-          `${API_URL}/${initialData.id}`,
+          `${API_URL}/update/${initialData.id}`,
           jsonData,
           config
         );
@@ -88,7 +88,7 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
         console.log("Package created successfully:", response.data);
       }
 
-      onClose(); // Close modal after success
+      onClose();
     } catch (error) {
       console.error(
         "Error submitting package:",

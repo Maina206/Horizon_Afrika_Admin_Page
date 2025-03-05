@@ -13,8 +13,9 @@ function App() {
   const [itemsPerPage] = useState(2);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token"); // Retrieve token from storage
+  // ✅ Corrected fetchPackages function
+  const fetchPackages = () => {
+    const token = localStorage.getItem("token");
 
     if (!token) {
       console.error("No authentication token found! Redirecting to login...");
@@ -35,9 +36,14 @@ function App() {
           "Error fetching packages:",
           error.response?.data || error.message
         );
-        setPackages([]); // Prevent `.slice()` errors
+        setPackages([]);
         setError(error.response?.data?.message || "Failed to load packages");
       });
+  };
+
+  // ✅ Use useEffect properly to fetch packages on mount
+  useEffect(() => {
+    fetchPackages();
   }, []);
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -52,7 +58,7 @@ function App() {
       <SearchBar />
       <main className="max-w-7xl mx-auto px-4 py-8">
         {error ? (
-          <p className="text-red-500 text-center">{error}</p> // Show error message
+          <p className="text-red-500 text-center">{error}</p>
         ) : (
           <Routes>
             <Route
@@ -61,7 +67,12 @@ function App() {
                 <>
                   {currentItems.length > 0 ? (
                     currentItems.map((pkg, index) => (
-                      <PackageCard key={index} {...pkg} />
+                      <PackageCard
+                        key={index}
+                        {...pkg}
+                        packageData={pkg} // Ensure packageData is passed
+                        onPackageUpdate={fetchPackages} // ✅ Pass function correctly
+                      />
                     ))
                   ) : (
                     <p className="text-center">No packages available</p>
