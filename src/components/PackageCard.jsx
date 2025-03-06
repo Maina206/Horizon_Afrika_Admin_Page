@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import CreatePackageModal from "./CreatePackageModal/CreatePackageModal";
 
 const PackageCard = ({
-  title,
+  package_name,
   price,
   image,
   location,
@@ -23,11 +23,17 @@ const PackageCard = ({
     <div className="bg-gray-100 rounded-lg overflow-hidden shadow-md mb-4">
       <div className="md:flex">
         <div className="md:w-1/3">
-          <img src={image} alt={title} className="w-full h-48 object-cover" />
+          <img
+            src={image}
+            alt={package_name}
+            className="w-full h-48 object-cover"
+          />
         </div>
         <div className="md:w-2/3 p-4">
           <div className="flex justify-between items-start">
-            <h2 className="text-xl font-semibold text-orange-500">{title}</h2>
+            <h2 className="text-xl font-semibold text-orange-500">
+              {package_name}
+            </h2>
             <div className="text-right">
               <p className="text-sm text-gray-600">Prices </p>
               <p className="text-orange-500 font-bold">{price}</p>
@@ -82,7 +88,7 @@ const PackageCard = ({
 };
 
 PackageCard.propTypes = {
-  title: PropTypes.string.isRequired,
+  package_name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
