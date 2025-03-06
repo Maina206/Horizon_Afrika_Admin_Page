@@ -51,40 +51,47 @@ const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
       return;
     }
 
-    const jsonData = {
-      agency_id,
-      package_name: packageData.package_name,
-      price: packageData.price,
-      location: packageData.location,
-      package_type: packageData.package_type,
-      activities: packageData.activities || "None",
-      day_count: packageData.day_count,
-      inclusions: packageData.inclusions,
-      exclusions: packageData.exclusions,
-    };
+    const formData = new FormData();
+    formData.append("package_name", packageData.package_name);
+    formData.append("price", packageData.price);
+    formData.append("location", packageData.location);
+    formData.append("package_type", packageData.package_type);
+    formData.append("activities", packageData.activities || "None");
+    formData.append("day_count", packageData.day_count);
+    formData.append("inclusions", packageData.inclusions);
+    formData.append("exclusions", packageData.exclusions);
 
-    console.log("Sending JSON Data:", jsonData);
+    images.forEach((image, index) => {
+      formData.append("photos", image);
+      console.log(`adding image ${index + 1}:`, image.name);
+    });
+
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+
+    console.log("Sending FormData:", formData);
 
     const token = localStorage.getItem("token");
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     };
 
     try {
       let response;
-      if (mode === "edit") {
+      if (mode === "edit" && initialData?.id) {
         response = await axios.put(
           `${API_URL}/update/${initialData.id}`,
-          jsonData,
+          formData,
           config
         );
         console.log("Package updated successfully:", response.data);
       } else {
-        response = await axios.post(API_URL, jsonData, config);
+        response = await axios.post(API_URL, formData, config);
         console.log("Package created successfully:", response.data);
       }
 

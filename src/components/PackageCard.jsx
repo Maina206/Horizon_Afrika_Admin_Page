@@ -6,7 +6,7 @@ import CreatePackageModal from "./CreatePackageModal/CreatePackageModal";
 const PackageCard = ({
   package_name,
   price,
-  image,
+  photos = [],
   location,
   booked,
   viewed,
@@ -55,7 +55,7 @@ const PackageCard = ({
       <div className="md:flex">
         <div className="md:w-1/3">
           <img
-            src={image}
+            src={photos.length > 0 ? photos[0] : "default-image.jpg"}
             alt={package_name}
             className="w-full h-48 object-cover"
           />
@@ -116,6 +116,7 @@ const PackageCard = ({
         onClose={() => setIsModalOpen(false)}
         mode={modalMode}
         initialData={modalMode === "edit" ? selectedPackage : undefined}
+        onPackageUpdate={onPackageUpdate}
       />
     </div>
   );

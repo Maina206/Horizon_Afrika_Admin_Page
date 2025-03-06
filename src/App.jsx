@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import Navbar from "./components/Navbar";
 import ButtonBar from "./components/ButtonBar";
 import PackageCard from "./components/PackageCard";
@@ -10,7 +10,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 function App() {
   const [packages, setPackages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2);
+  const [itemsPerPage] = useState(5);
   const [error, setError] = useState(null);
 
   const fetchPackages = () => {
@@ -73,7 +73,9 @@ function App() {
                       />
                     ))
                   ) : (
-                    <p className="text-center">No packages available</p>
+                    <p className="text-center">
+                      Loading Available Packages....
+                    </p>
                   )}
 
                   {/* Pagination */}
