@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios"; // Import Axios
 import Navbar from "./components/Navbar";
-import SearchBar from "./components/SearchBar";
+import ButtonBar from "./components/ButtonBar";
 import PackageCard from "./components/PackageCard";
 import BookingTable from "./components/BookingsTable";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -13,7 +13,6 @@ function App() {
   const [itemsPerPage] = useState(2);
   const [error, setError] = useState(null);
 
-  // ✅ Corrected fetchPackages function
   const fetchPackages = () => {
     const token = localStorage.getItem("token");
 
@@ -41,7 +40,6 @@ function App() {
       });
   };
 
-  // ✅ Use useEffect properly to fetch packages on mount
   useEffect(() => {
     fetchPackages();
   }, []);
@@ -55,7 +53,7 @@ function App() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      <SearchBar />
+      <ButtonBar />
       <main className="max-w-7xl mx-auto px-4 py-8">
         {error ? (
           <p className="text-red-500 text-center">{error}</p>
@@ -70,8 +68,8 @@ function App() {
                       <PackageCard
                         key={index}
                         {...pkg}
-                        packageData={pkg} // Ensure packageData is passed
-                        onPackageUpdate={fetchPackages} // ✅ Pass function correctly
+                        packageData={pkg}
+                        onPackageUpdate={fetchPackages}
                       />
                     ))
                   ) : (
@@ -88,7 +86,7 @@ function App() {
                           onClick={() => paginate(i + 1)}
                           className={`mx-1 px-3 py-1 rounded ${
                             currentPage === i + 1
-                              ? "bg-orange-500 text-white"
+                              ? "bg-blue-500 text-white"
                               : "bg-gray-200 text-gray-700"
                           }`}
                         >
