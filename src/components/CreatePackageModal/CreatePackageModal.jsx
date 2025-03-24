@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./CreatePackageModal.css";
 
-const API_URL = "http://127.0.0.1:5000/packages";
+const API_URL = "https://horizonafrika-backend.onrender.com/packages";
 
 const CreatePackageModal = ({ isOpen, onClose, mode, initialData }) => {
   const [packageData, setPackageData] = useState({

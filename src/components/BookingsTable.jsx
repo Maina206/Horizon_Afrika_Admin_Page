@@ -20,7 +20,7 @@ const BookingTable = () => {
       }
 
       axios
-        .get("http://127.0.0.1:5000/bookings", {
+        .get("https://horizonafrika-backend.onrender.com/bookings", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {

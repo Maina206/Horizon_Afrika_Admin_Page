@@ -38,9 +38,12 @@ const PackageCard = ({
     }
 
     try {
-      await axios.delete(`http://127.0.0.1:5000/package/delete/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `https://horizonafrika-backend.onrender.com/package/delete/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       console.log(`Deleted package with ID: ${id}`);
       onPackageUpdate();

@@ -23,7 +23,7 @@ function App() {
     }
 
     axios
-      .get("http://127.0.0.1:5000/packages", {
+      .get("https://horizonafrika-backend.onrender.com/packages", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
