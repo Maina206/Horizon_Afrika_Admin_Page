@@ -14,6 +14,13 @@ This is a web-based tour and travel booking application built using React and Ta
 - Bookings table with data of the agency's packages
 - Agencies can create new packages, edit existing ones, and delete outdated listings
 
+## Live link
+
+You can view the live platform at https://horizonafrikaadmin.netlify.app/
+Use the following credentials to login
+Username: kikao@gmail.com
+Password: Trial123
+
 ## Installation
 
 1. Clone the repository:
@@ -116,4 +123,3 @@ rm -rf node_modules package-lock.json && npm install
 ## License
 
 This project is licensed under the MIT License.
-
